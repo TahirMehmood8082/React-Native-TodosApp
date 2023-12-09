@@ -1,5 +1,5 @@
-import { View, Text, SafeAreaView, FlatList, TextInput, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, SafeAreaView, FlatList, TextInput, TouchableOpacity, Keyboard } from 'react-native'
+import React, { useState, useEffect } from 'react'
 import todoStyle from '../todoStyle/TodoStyle'
 import { IconButton } from 'react-native-paper'
 import FallBack from '../components/FallBack';
@@ -20,10 +20,12 @@ const TodoScreen = () => {
   const [editedTodo, setEditedTodo] = useState(null)
   const handleAddTodo = ()=>{
     if(todo === ""){
+      Keyboard.dismiss();
       return 
     }
     setTodoList([...todoList, {id: Date.now().toString(), title: todo}])
     setTodo("")
+    Keyboard.dismiss();
   }
   const handleEditTodo = (todo)=>{
     setEditedTodo(todo)
@@ -43,6 +45,7 @@ const TodoScreen = () => {
     setTodoList(updatedTodos)
     setEditedTodo(null)
     setTodo("")
+    Keyboard.dismiss();
   }
   const renderTodos = ({item, index})=>{
     return(
@@ -91,6 +94,7 @@ const TodoScreen = () => {
          
         }
         <FlatList 
+          style={todoList.length > 0 && todoStyle.flatList}
           data={todoList}
           renderItem={renderTodos}
         />

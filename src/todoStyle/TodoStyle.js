@@ -48,6 +48,10 @@ const styles = StyleSheet.create({
     height: 300,
     width: 300,
   },
+  flatList:{
+    height: 600,
+    borderRadius: 10,
+  },
 });
 
 export default styles;
